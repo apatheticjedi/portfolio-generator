@@ -1,14 +1,51 @@
+const fs = require('fs');
 const inquirer = require('inquirer')
-// const fs = require('fs');
-// const generatePage = require('./src/page-template');
+const generatePage = require('./src/page-template');
 
-// const pageHTML = generatePage(name, github);
-
-// fs.writeFile('./index.html', pageHTML, err => {
-//     if (err) throw err;
-
-//     console.log('Portfolio complete! Check out index.html to see the ouput!');
-// });
+// const mockData = {
+//     name: 'David',
+//     github: 'apatheticjedi',
+//     confirmAbout: true,
+//     about: 'I am a dude!',
+//     projects: [
+//         {
+//             name: 'Run Buddy',
+//             description:
+//               'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque. Nulla eget fringilla nulla. Integer gravida magna mi, id efficitur metus tempus et. Nam fringilla elit dapibus pellentesque cursus.',
+//             languages: ['HTML', 'CSS'],
+//             link: 'https://github.com/lernantino/run-buddy',
+//             feature: true,
+//             confirmAddProject: true
+//           },
+//           {
+//             name: 'Taskinator',
+//             description:
+//               'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque. Nulla eget fringilla nulla. Integer gravida magna mi, id efficitur metus tempus et. Nam fringilla elit dapibus pellentesque cursus.',
+//             languages: ['JavaScript', 'HTML', 'CSS'],
+//             link: 'https://github.com/lernantino/taskinator',
+//             feature: true,
+//             confirmAddProject: true
+//           },
+//           {
+//             name: 'Taskmaster Pro',
+//             description:
+//               'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque. Nulla eget fringilla nulla. Integer gravida magna mi, id efficitur metus tempus et. Nam fringilla elit dapibus pellentesque cursus.',
+//             languages: ['JavaScript', 'jQuery', 'CSS', 'HTML', 'Bootstrap'],
+//             link: 'https://github.com/lernantino/taskmaster-pro',
+//             feature: false,
+//             confirmAddProject: true
+//           },
+//           {
+//             name: 'Robot Gladiators',
+//             description:
+//               'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque.',
+//             languages: ['JavaScript'],
+//             link: 'https://github.com/lernantino/robot-gladiators',
+//             feature: false,
+//             confirmAddProject: false
+//           }
+//     ]
+// }
 
 const promptUser = () => {
     return inquirer.prompt([
@@ -20,7 +57,7 @@ const promptUser = () => {
                 if (nameInput) {
                     return true;
                 } else {
-                    console.log ('Please enter your name!');
+                    console.log('Please enter your name!');
                     return false;
                 }
             }
@@ -33,7 +70,7 @@ const promptUser = () => {
                 if (githubInput) {
                     return true;
                 } else {
-                    console.log ('Please enter your username!');
+                    console.log('Please enter your username!');
                     return false;
                 }
             }
@@ -83,7 +120,7 @@ const promptProject = portfolioData => {
                 if (descriptionInput) {
                     return true;
                 } else {
-                    console.log ('Please provide a description!');
+                    console.log('Please provide a description!');
                     return false;
                 }
             }
@@ -102,7 +139,7 @@ const promptProject = portfolioData => {
                 if (linkInput) {
                     return true;
                 } else {
-                    console.log ('Please enter the project link!');
+                    console.log('Please enter the project link!');
                     return false;
                 }
             }
@@ -133,5 +170,11 @@ const promptProject = portfolioData => {
 promptUser()
     .then(promptProject)
     .then(portfolioData => {
-        console.log(portfolioData);
+        const pageHTML = generatePage(portfolioData);
+
+        fs.writeFile('./index.html', pageHTML, err => {
+            if (err) throw new Error(err);
+
+            console.log('Portfolio complete! Check out index.html to see the ouput!');
+        });
     });
