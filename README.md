@@ -25,7 +25,11 @@ This is an application to quickly generate a portfolio using project repositorie
 * Node.js 
 
 ## Installation Instructions
-Clone the repo then install inquirer in the root directory to use. Run 'npm i inquirer@8.2.4' at the command line.
+Clone the repo then install inquirer in the root directory to use. Run 
+~~~
+npm i inquirer@8.2.4
+~~~
+at the command line.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
